@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page</title>
+    <style>
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+        }
+        .payment-form input[type="number"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 200px;
+        }
+        .payment-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .payment-successful {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 20px;
+            color: green;
+            display: none;
+        }
+        .processing-message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #333;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .warning-message {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <input type="number" id="amount" placeholder="Enter Amount">
+        <button onclick="processPayment()">Pay</button>
+        <div id="warning-message" class="warning-message"></div>
+    </div>
+
+    <div id="processing-message" class="processing-message" style="display: none;">
+        <span class="loader"></span> Processing...
+    </div>
+
+    <div id="payment-successful" class="payment-successful">
+        Payment Successful!
+    </div>
+
+    <script>
+        function processPayment() {
+            var amountInput = document.getElementById("amount");
+            var amount = amountInput.value;
+
+            var warningMessage = document.getElementById("warning-message");
+            var processingMessage = document.getElementById("processing-message");
+            var paymentSuccessfulMessage = document.getElementById("payment-successful");
+            
+            if (amount === "") {
+                warningMessage.innerText = "Please enter the amount.";
+                warningMessage.style.display = "block";
+                paymentSuccessfulMessage.style.display = "none";
+            } else {
+                warningMessage.style.display = "none";
+                processingMessage.style.display = "block";
+                paymentSuccessfulMessage.style.display = "none";
+
+                // Perform payment processing here (e.g., make an API call, validate payment, etc.)
+                // For this example, we'll simulate a delay before displaying the payment successful message
+                
+                setTimeout(function() {
+                    processingMessage.style.display = "none";
+                    paymentSuccessfulMessage.style.display = "block";
+                }, 2000); // Delay of 2000 milliseconds (2 seconds)
+            }
+        }
+    </script>
+</body>
+</html>
